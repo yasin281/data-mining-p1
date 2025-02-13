@@ -1,6 +1,6 @@
 import pandas as pd
 
-def sample_rows_per_year(input_csv, output_csv, start_year=2013, end_year=2023, n=300):
+def sample_rows_per_year(input_csv, output_csv, start_year=2013, end_year=2023, n=450):
     # Leemos el archivo CSV
     df = pd.read_csv(input_csv)
     
@@ -34,5 +34,5 @@ sample_rows_per_year(
     output_csv='muestra.csv',
     start_year=2013,
     end_year=2023,
-    n=300
+    n=450
 )
