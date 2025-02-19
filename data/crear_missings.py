@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Leer el archivo CSV
-df = pd.read_csv("muestra.csv")
+df = pd.read_csv("muestras.csv")
 
 # Obtener número de filas y columnas
 n_filas, n_columnas = df.shape
