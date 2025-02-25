@@ -1,0 +1,19 @@
+Customer Age:
+
+We can see through the histogram and summary that the customer age roughly starts at the age of 17 and ends at 80, which is the logical age spectrum expected for the products we are analizing. Moreover, we can observe that it is skewed towards the left (17-49) rather than the right (50-80), suggesting a bias for younger customers. This is backed up by the fact that the peak is around 30 years, which can also be seen by the mean of 35.88 and median of 34. Although the graph is vaguely shaped like a bell curve, through the Shapiro Test for normality and the Q-Q plot we can safely conclude that the distribution for the customer age is not normal, which implies that there are no outliers in the data for customer age. Furthermore, even if we were to apply a logarithmic transformation, we would still arrive at the same conclusion, as seen by the graphs and test after the logarithmic transformation.
+---------------------------------------------------------------------------------
+Customer Gender:
+
+We can see through the barplot and frequency table that the gender distribution follows closely a 50/50 split, save for some deviation inherent to the sample.
+
+---------------------------------------------------------------------------------
+Month:
+
+We can see though the barplot and frequency table that the month distribution is relatively stable from January to April and from August to November, which corresponds to late winter and early spring and late summer and autumn respectively. Moreover, we can observe two peaks at May-June and December. All in all, we can safely conclude that sales do not experience massive fluctuations due to seasonality.
+
+---------------------------------------------------------------------------------
+Year:
+
+It is pretty clear through the barplot and frequency table that the year distribution is uniform since we are working with a subdataset that contains roughly the same amount of samples per year.
+---------------------------------------------------------------------------------
+
