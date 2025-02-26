@@ -17,3 +17,19 @@ Year:
 It is pretty clear through the barplot and frequency table that the year distribution is uniform since we are working with a subdataset that contains roughly the same amount of samples per year.
 ---------------------------------------------------------------------------------
 
+Country:
+
+It can be seen evidently enough through the pie chart and barplot that the United States is the number one consumer, followed by Australia and the rest. Although not as obvious in the pie chart, since Canada, France, the UK and Germany are pretty close to one another, the barplot and frequency table are overall better for determining the order the countries based on number of purchases. A curious finding is the existance of a single entry for Portugal.
+
+---------------------------------------------------------------------------------
+
+Product Category:
+
+It can be seen that the accessories make up most of the sales, around 60% according to the pie chart, while bikes and clothing combined form the remaining 40%.
+
+---------------------------------------------------------------------------------
+
+Order Quantity:
+
+It can be seen from the histogram that the distribution of order quantity does not follow a normal distribution. In fact, it heavily spikes at 1-2 and then it stays consistent until 30 where it finally falls off. Through the boxplot we also arrive at the conclusion that the distribution is rather bottom heavy with an average strongly brought down by the spike at 1-2.
+

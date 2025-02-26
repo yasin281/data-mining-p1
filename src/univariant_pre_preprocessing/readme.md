@@ -1,1 +1,1 @@
-# Contains the script and anotations for the first 10 variables
+# Contains the script and anotations for the univariant descriptive
