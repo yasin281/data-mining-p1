@@ -1,0 +1,5 @@
+# install the next R packages
+
+install.packages("ggplot2")
+install.packages("gridExtra")
+install.packages("corrplot")
