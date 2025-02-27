@@ -1,7 +1,7 @@
 # Configurar directorio de trabajo
 getwd()
 #setwd("C:/Users/jaaaa/Desktop/MD")
-setwd("C:/Users/usuario/Documents/uni_upc/ultimoaño/MD/scripts_univariante")
+#setwd("C:/Users/usuario/Documents/uni_upc/ultimoaño/MD/scripts_univariante")
 
 # Leer datos
 dd <- read.csv("muestras.csv", header = TRUE, sep = ",")
@@ -48,7 +48,6 @@ summary(CustomerAge)
 # Test de normalidad
 shapiro.test(CustomerAge)
 shapiro.test(log(CustomerAge))
-PearsonTest(CustomerAge)
 
 # QQ-plot de CustomerAge
 png("graficas/qqplot_CustomerAge.png")
@@ -89,9 +88,10 @@ chisq.test(table(CustomerGender), p = c(0.5, 0.5))
 Month <- dd[,"Month"]
 
 summary(factor(Month, levels = month.name))
-png("graficas/barplot_Month.png")
+png("graficas/barplot_Month.png", width= 600, height=480)
 barplot(table(factor(Month, levels = month.name)), col = colors,
-        main = "Diagrama de barras de Meses", ylab = "Frecuencia")
+        main = "Diagrama de barras de Meses", ylab = "Frecuencia"
+        ,las=2)
 dev.off()
 Freq(factor(Month, levels = month.name))
 
@@ -118,7 +118,7 @@ pie(table(as.factor(Country)), col = colors,
     main = "Gráfico de pastel de Country")
 dev.off()
 
-png("graficas/barplot_Country.png")
+png("graficas/barplot_Country.png", width=800)
 barplot(table(as.factor(Country)), col = colors,
         main = "Diagrama de barras de Country", ylab = "Frecuencia")
 dev.off()
@@ -345,3 +345,4 @@ summary(Devilery_time)
 png("graficas/boxplot_Devilery_time.png")
 boxplot(Devilery_time, col = "purple4", main = "Boxplot de Devilery_time", ylab = "Devilery_time")
 dev.off()
+
