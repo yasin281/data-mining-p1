@@ -33,3 +33,20 @@ Order Quantity:
 
 It can be seen from the histogram that the distribution of order quantity does not follow a normal distribution. In fact, it heavily spikes at 1-2 and then it stays consistent until 30 where it finally falls off. Through the boxplot we also arrive at the conclusion that the distribution is rather bottom heavy with an average strongly brought down by the spike at 1-2.
 
+---------------------------------------------------------------------------------
+
+Unit Cost:
+
+It can be seen through the histogram that most of the products have a unit cost below 500. In fact, the peak is so acute that it makes it difficult to evaluate the other costs, since, relatively speaking, they are much more similar to one another. To solve this issue, we can apply a logarithmic transformation to the data. As expected, the peak at low costs is still present, but not as overwhelming anymore. As such, we can see that there is a valley right before e^2, followed by a second peak. This pattern can also be seen, although with much more pronounced valley at e^5. Through the boxplot of the logarithm we observe that most of the costs, accumulate at the lower values.
+
+---------------------------------------------------------------------------------
+
+Unit Price:
+
+It can be seen through the histogram that most of the products have a unit price below 500. In fact, the peak is so acute that it obscures the details for the other prices, since, relatively speaking, they are much more similar to one another. To combat this issue, we can apply a logarithmic transformation to the data. As expected, the peak at low prices is still present, but we can see that it has shifted slightly to the right, suggesting that there is a distinction between cheapest products and cheap products so to speak. Other interesting details include the peak at e^4, which corresponds to the mid-low prices, which is followed by a valley before finally arriving at the peak at e^8 which are the high-end prices. As indicated by the boxplot of the logarithm, we observe that most prices accumulate at the lower values.
+
+---------------------------------------------------------------------------------
+
+Size:
+
+It can be seen through the pie chart that the sizes have roughly an equal split of 25% each.
