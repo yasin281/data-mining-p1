@@ -50,3 +50,53 @@ It can be seen through the histogram that most of the products have a unit price
 Size:
 
 It can be seen through the pie chart that the sizes have roughly an equal split of 25% each.
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+Insurance:
+
+The barplot suggests a relatively balanced distribution across the two categories (Basic and Premium), with Premium possibly having a slight edge, though not overwhelmingly. 
+On the other hand, in the pie chart, we can see that there are missing values ("not categorized"), revealing that there is a third category representing "None" insurance option.
+---------------------------------------------------------------------------------
+
+Color:
+
+The pie chart and barplot includes five colors (Black, White, Red, Green and Blue), all in comparable proportions. There is no clear, overwhelmingly popular color choice.
+---------------------------------------------------------------------------------
+
+Warranty:
+
+Both, the pie chart and barplot for Warranty shows four categories (1 Year, 2 Years, 3 Years and Lifetime) split fairly evenly. No single warranty duration appears to dominate the others significantly.
+---------------------------------------------------------------------------------
+
+Eco_Friendly:
+
+The pie chart and barplot shows an almost even split between True and False, indicating that approximately half of the items or orders are labeled as eco-friendly.
+---------------------------------------------------------------------------------
+
+Shipping_Cost:
+
+Values range roughly from 0 to 100, and the histogram shows a broad distribution with moderate peaks; no single cost range stands out as dominant.
+---------------------------------------------------------------------------------
+
+Discount:
+
+There is a pronounced spike at 0 (indicating no discount), with the rest of the values spread from about 5 to 30. Higher discounts close to 30 are relatively less common.
+---------------------------------------------------------------------------------
+
+Shipping_Weight:
+
+This variable spans from 0 to about 15. The histogram suggests two slight peaks around 5–6 kg and around 10-11 kg, indicating two principal shipping weight ranges within the data. In addition, weights under 1kgs are less common.
+---------------------------------------------------------------------------------
+
+Delivery_time:
+
+The histogram ranges roughly from 1 to 9 days, with frequencies that are fairly uniform. It seems like a slight peak at 1-2 days.

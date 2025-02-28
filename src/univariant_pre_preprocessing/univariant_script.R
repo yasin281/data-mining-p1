@@ -230,7 +230,8 @@ pie(table(as.factor(Insurance)), col = colors, main = "Gráfico de pastel de Ins
 dev.off()
 
 png("graficas/barplot_Insurance.png")
-barplot(table(factor(Insurance, levels = c("None", "Basic", "Premium"))), col = colors,
+#Para cuando se haya hecho el preporcessing: (nueva categoria: None) barplot(table(factor(Insurance, levels = c("None", Basic", "Premium"))), col = colors,
+barplot(table(factor(Insurance, levels = c("Basic", "Premium"))), col = colors,
         main = "Diagrama de barras de Insurance", ylab = "Frecuencia")
 dev.off()
 Freq(as.factor(Insurance))
@@ -297,7 +298,7 @@ dev.off()
 
 summary(Shipping_cost)
 
-png("graficas/boxplot_OrderQty.png")
+png("graficas/boxplot_Shipping_cost.png")
 boxplot(Shipping_cost, col = "purple4", main = "Boxplot de Shipping_cost", ylab = "Shipping_cost")
 dev.off()
 #-------------------------------------------------------------------------------
@@ -328,21 +329,21 @@ dev.off()
 summary(Shipping_weight)
 
 png("graficas/boxplot_Shipping_weight.png")
-boxplot(OrderQty, col = "purple4", main = "Boxplot de Shipping_weight", ylab = "Shipping_weight")
+boxplot(Shipping_Weight, col = "purple4", main = "Boxplot de Shipping_weight", ylab = "Shipping_weight")
 dev.off()
 #-------------------------------------------------------------------------------
-# Análisis para Devilery_time
+# Análisis para Delivery_Time
 
-Devilery_time <- dd[,"Delivery_Time"]
+Delivery_Time <- dd[,"Delivery_Time"]
 
-png("graficas/hist_Devilery_time.png")
-hist(Devilery_time, freq = TRUE, col = "purple4", border = "lightblue1",
-     main = "Histograma de Devilery_time", xlab = "Devilery_time")
+png("graficas/hist_Delivery_Time.png")
+hist(Delivery_Time, freq = TRUE, col = "purple4", border = "lightblue1",
+     main = "Histograma de Delivery_Time", xlab = "Delivery_Time")
 dev.off()
 
-summary(Devilery_time)
+summary(Delivery_Time)
 
-png("graficas/boxplot_Devilery_time.png")
-boxplot(Devilery_time, col = "purple4", main = "Boxplot de Devilery_time", ylab = "Devilery_time")
+png("graficas/boxplot_Delivery_Time.png")
+boxplot(Delivery_Time, col = "purple4", main = "Boxplot de Delivery_Time", ylab = "Delivery_Time")
 dev.off()
 
