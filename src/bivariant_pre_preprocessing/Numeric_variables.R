@@ -3,7 +3,7 @@ library(corrplot)
 
 
 #Read the data file
-data <- read.csv("./data/muestras.csv", header = TRUE, sep = ",")
+data <- read.csv("./data/reduced_data.csv", header = TRUE, sep = ",")
 
 #Select the numerical variables
 num<-c("Customer_Age", "Order_Quantity", "Unit_Cost", "Unit_Price", "Revenue", "Shipping_Weight", "Delivery_Time", "Discount", "Shipping_Cost")

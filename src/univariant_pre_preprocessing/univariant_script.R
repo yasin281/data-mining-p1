@@ -4,7 +4,7 @@ getwd()
 #setwd("C:/Users/usuario/Documents/uni_upc/ultimoaño/MD/scripts_univariante")
 
 # Leer datos
-dd <- read.csv("muestras.csv", header = TRUE, sep = ",")
+dd <- read.csv("reduced_data.csv", header = TRUE, sep = ",")
 
 # Crear carpeta para guardar gráficos
 dir.create("graficas", showWarnings = FALSE)

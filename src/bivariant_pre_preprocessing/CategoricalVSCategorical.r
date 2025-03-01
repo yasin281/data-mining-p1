@@ -10,7 +10,7 @@ library(grid)
 setwd(file.path(getwd(), "/src/bivariant_pre_preprocessing"))
 
 # Read the data file
-data <- read.csv("../../data/muestras.csv", header = TRUE, sep = ",")
+data <- read.csv("../../data/reduced_data.csv", header = TRUE, sep = ",")
 
 categoricalVariablesNames <- c("Month","Customer_Gender","Country","Product_Category","Size","Color","Warranty","Eco_Friendly","Insurance")
 
