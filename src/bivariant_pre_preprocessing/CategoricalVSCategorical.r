@@ -57,4 +57,42 @@ for (i in 1:length(categoricalVariablesNames)) {
   }
 }
 
-print("End of script: CategoricalVSCategorical.r")
+print("Contingency tables have been created")
+
+output_dir <- "../../images/before_preprocessing/bivariate/categoricalVScategorical/multipleBarplots/"
+
+if (!dir.exists(output_dir)) {
+  print(paste("Creating directory", output_dir))
+  dir.create(output_dir, recursive = TRUE)
+}
+
+
+for (i in 1:length(categoricalVariablesNames)) {
+  for (j in 1:length(categoricalVariablesNames)) {
+    if (i != j) {
+      var1_name <- categoricalVariablesNames[i]
+      var2_name <- categoricalVariablesNames[j]
+      
+      print(paste("Creating barplot for", var1_name, "and", var2_name))
+      
+      p <- ggplot(data, aes_string(x = var1_name, fill = var2_name)) +
+        geom_bar(position = "dodge") +
+        labs(title = paste("Multiple Barplot of", var1_name, "vs", var2_name),
+             x = var1_name,
+             y = "Count") +
+        theme_minimal() +
+        theme(plot.background = element_rect(fill = "white", colour = "white"),
+              legend.title = element_text(size = 10),
+              legend.text = element_text(size = 10),
+              plot.title = element_text(size = 14, face = "bold"),
+              axis.title = element_text(size = 12),
+              panel.border = element_blank())  
+      
+      ggsave(filename = paste(output_dir,"MultipleBarplot", var1_name, "_vs_", var2_name, ".png", sep = ""), plot = p, width = 10, height = 6)
+    }
+  }
+}
+print("Multiple barplots have been created")
+
+print("End of the script")
+
