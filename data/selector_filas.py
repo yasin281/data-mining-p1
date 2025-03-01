@@ -89,7 +89,7 @@ sample_sizes = {
 # Ejecución de ejemplo
 sample_rows_per_year(
     input_csv='bike_sales_data_world_2013_2023.csv',
-    output_csv='muestras.csv',
+    output_csv='reduced_data.csv',
     start_year=2013,
     end_year=2023,
     sample_sizes=sample_sizes
