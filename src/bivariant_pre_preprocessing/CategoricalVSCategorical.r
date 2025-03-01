@@ -10,17 +10,17 @@ library(grid)
 setwd(file.path(getwd(), "/src/bivariant_pre_preprocessing"))
 
 # Read the data file
-data <- read.csv("../../data/reduced_data.csv", header = TRUE, sep = ",")
+data <- read.csv("../../data/filtered_data.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
-categoricalVariablesNames <- c("Month","Customer_Gender","Country","Product_Category","Size","Color","Warranty","Eco_Friendly","Insurance")
-
+categoricalVariablesNames <- c("Month", "CustGender", "Country", "ProdCat", "Size", "Color", "Warranty", "EcoFriendly", "Insurance")
 # Select the categorical variables from the data and convert them to factors
 categoricalVariables <- lapply(data[,categoricalVariablesNames], as.factor)
 
 print(length(categoricalVariables))
 print(categoricalVariables)
 
-output_dir <- "graphics/categoricalVScategorical/contingency_tables/"
+output_dir <- "../../images/before_preprocessing/bivariate/categoricalVScategorical/contingency_tables/"
+
 if (!dir.exists(output_dir)) {
   print(paste("Creating directory", output_dir))
   dir.create(output_dir, recursive = TRUE)
