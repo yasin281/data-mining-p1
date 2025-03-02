@@ -27,7 +27,7 @@ str(dd)
 # 2. Missings treatment, print the variables with missings, empty strings are considered as missings
 colSums(is.na(dd))
 colSums(dd == "")
-dd$Insurance[dd$Insurance == ""] <- "NA"
+dd$Insurance[dd$Insurance == ""] <- "None"
 
 table(dd$Insurance)
 
