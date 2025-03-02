@@ -100,8 +100,8 @@ dd$Warranty <- warranty_mapping[dd$Warranty]
 # Check if the mapping is correct
 print(sort(unique(dd$Warranty)) == sort(newShortWarranties))
 
-newShortProdCats <- c("Acc","Cloths","Bike")
-prodcat_mapping <- setNames(newShortProdCats, c("Accessories", "Clothes", "Bikes"))
+newShortProdCats <- c("Acc","Clothes","Bike")
+prodcat_mapping <- setNames(newShortProdCats, c("Accessories", "Clothing", "Bikes"))
 dd$ProdCat <- prodcat_mapping[dd$ProdCat]
 # Check if the mapping is correct
 print(sort(unique(dd$ProdCat)) == sort(newShortProdCats))
@@ -128,7 +128,7 @@ for (var in numericalVariables) {
 }
 
 # Save the preprocessed data
-write.csv(dd, "../../data/filted_data.csv", row.names = FALSE)
+write.csv(dd, "../../data/filtered_data.csv", row.names = FALSE)
 
 print("Preprocessing finished")
 
