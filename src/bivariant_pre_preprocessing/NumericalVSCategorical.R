@@ -14,6 +14,9 @@ datos[vars_categoricas] <- lapply(datos[vars_categoricas], as.factor)
 vars_numericas <- setdiff(columnas_interes, vars_categoricas)
 datos[vars_numericas] <- lapply(datos[vars_numericas], as.numeric)
 
+# Set Month to print in the correct order
+datos$Month <- factor(datos$Month, levels = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+
 output_dir <- "../../images/before_preprocessing/bivariate/numericalVScategorical/"
 if (!dir.exists(output_dir)) {
   print(paste("Creating directory", output_dir))
