@@ -1,15 +1,5 @@
-#  READING CREDSCO_BIN
-# load("d:/karina/docencia/DataMiningEI/Practiques/2CredscoProfiling/credscok_bin")
-
-#read data only if required
-dd <- read.csv("../../data/filtered_data.csv", sep = ",", stringsAsFactors = TRUE)
-
-names(dd)
-attach(dd)
-
-#Dictamen    <- as.factor(Dictamen)
-#levels(Dictamen) <- c(NA, "positiu","negatiu")
-
+#read data 
+dd <- read.csv("filtered_data.csv", sep = ",", stringsAsFactors = TRUE)
 
 #Calcula els valor test de la variable Xnum per totes les modalitats del factor P
 ValorTestXnum <- function(Xnum,P){
@@ -25,9 +15,6 @@ ValorTestXnum <- function(Xnum,P){
   for(c in 1:length(levels(as.factor(P)))){if (pxk[c]>0.5){pxk[c]<-1-pxk[c]}}
   return (pxk)
 }
-
-
-
 
 ValorTestXquali <- function(P,Xquali){
   taula <- table(P,Xquali);
@@ -46,22 +33,9 @@ ValorTestXquali <- function(P,Xquali){
   return (list(rowpf=pf,vtest=zkj,pval=pzkj))
 }
 
-
-#source("file")
-#dd contain the dataset
-dd<-dd
-#dd<-dd[filtro,]
-#dd<-df
-K<-dim(dd)[2]
-par(ask=TRUE)
-
-
-#P must contain the class variable
-#P<-dd[,3]
+#P contains class variable (which cluster an individual belongs to)
 P<-c1
-#P<-dd[,18]
 nameP<-"classe"
-#P<-df[,33]
 
 nc<-length(levels(factor(P)))
 nc
@@ -70,13 +44,21 @@ pvalk <- matrix(data=0,nrow=nc,ncol=K, dimnames=list(levels(P),names(dd)))
 nameP<-"Class"
 n<-dim(dd)[1]
 
+if(!dir.exists("profilingImages")) dir.create("profilingImages")
+setwd("../profilingImages")
+
 for(k in 1:K){
   if (is.numeric(dd[,k])){ 
     print(paste("Anàlisi per classes de la Variable:", names(dd)[k]))
     
-    boxplot(dd[,k]~P, main=paste("Boxplot of", names(dd)[k], "vs", nameP ), horizontal=TRUE)
+    png(paste("profilingImages/", "Boxplot", names(dd)[k], "Vs", nameP, ".png",sep=""))
+    boxplot(dd[,k]~P, main=paste("Boxplot of", names(dd)[k], "vs", nameP ), horizontal=TRUE, xlab=names(dd)[k], ylab=nameP)
+    dev.off()
     
+    png(paste("profilingImages/", "Means", names(dd)[k], "By", nameP, ".png",sep=""))
     barplot(tapply(dd[[k]], P, mean),main=paste("Means of", names(dd)[k], "by", nameP ))
+    dev.off();
+    
     abline(h=mean(dd[[k]]))
     legend(0,mean(dd[[k]]),"global mean",bty="n")
     print("Estadístics per groups:")
@@ -202,5 +184,3 @@ for (c in 1:length(levels(as.factor(P)))) {
 
 #afegir la informacio de les modalitats de les qualitatives a la llista de pvalues i fer ordenacio global
 
-#saving the dataframe in an external file
-#write.table(dd, file = "credscoClean.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
