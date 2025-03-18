@@ -58,6 +58,8 @@ for(k in 1:K){
     png(paste("profilingImages/", "Means", names(dd)[k], "By", nameP, ".png",sep=""))
     barplot(tapply(dd[[k]], P, mean),main=paste("Means of", names(dd)[k], "by", nameP ))
     dev.off();
+
+    #todo: keep saving images
     
     abline(h=mean(dd[[k]]))
     legend(0,mean(dd[[k]]),"global mean",bty="n")
