@@ -31,9 +31,7 @@ plot(h_euclidean, main = "1. Euclidean ward")
 # Dendrograma 2: Gower Dissimilarity (Squared) with Ward’s Method
 # ---------------------------------------------------------
 library(cluster)
-# 'actives' define las columnas a usar (se incluyen tanto numéricas como categóricas)
-actives <- c(1:16)
-dissimMatrix <- daisy(dd[, actives], metric = "gower", stand = TRUE)  # Calcula la disimilitud con Gower
+dissimMatrix <- daisy(dd, metric = "gower", stand = TRUE)  # Calcula la disimilitud con Gower
 distMatrix <- dissimMatrix^2  # Eleva al cuadrado para adecuarlo a Ward’s method
 h_gower <- hclust(distMatrix, method = "ward.D2")  # Clustering jerárquico con Ward
 plot(h_gower, main = "2. Gower ward")
@@ -89,6 +87,14 @@ for (k in 2:10) {
   clusters_hc <- cutree(h_gower, k)
   ch_index_hc[k - 1] <- calinhara(dcon, clusters_hc, k)
 }
+# ---------------------------------------------------------
+# Sección 4: Análisis del tamaño de los clusters
+# ---------------------------------------------------------
+cut_euclidean <- cutree(h_euclidean, k=4)
+table(cut_euclidean)
+
+cut_gower <- cutree(h_gower, k=4)
+table(cut_gower)
 plot(2:10, ch_index_hc, type = "b", 
      xlab = "Number of clusters", 
      ylab = "Calinski-Harabasz Index", 
