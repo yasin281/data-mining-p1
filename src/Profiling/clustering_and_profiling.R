@@ -35,8 +35,7 @@ dcon <- dd[vars_numericas]
 # ------------------------------
 # 2. CLUSTERING: GOWER + WARD
 # ------------------------------
-actives <- c(1:16)  # Ajusta según tus columnas relevantes
-dissimMatrix <- daisy(dd[, actives], metric = "gower", stand = TRUE)
+dissimMatrix <- daisy(dd, metric = "gower", stand = TRUE)
 distMatrix <- dissimMatrix^2  
 h_gower <- hclust(distMatrix, method = "ward.D2")
 
