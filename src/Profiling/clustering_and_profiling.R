@@ -1,9 +1,8 @@
 # ------------------------------
 # Cargar y preprocesar los datos
 # ------------------------------
-setwd("C:/Users/usuario/Documents/uni_upc/ultimoaño/MD/scripts_r")
 
-dd <- read.csv("filtered_data.csv", sep = ",", stringsAsFactors = TRUE)
+dd <- read.csv("data/filtered_data.csv", sep = ",", stringsAsFactors = TRUE)
 
 # Definir las variables de interés
 columnas_interes <- c("Month", "Year", "CustAge", "CustGender", 
@@ -26,17 +25,34 @@ dcon <- data.frame(dd[vars_numericas])  # Solo las variables numéricas
 d_euclidean <- dist(dcon)  # Calcula la matriz de distancias Euclidianas
 h_euclidean <- hclust(d_euclidean, method = "ward.D2")  # Clustering jerárquico con Ward
 plot(h_euclidean, main = "1. Euclidean ward")
+rect.hclust(h_euclidean, k = 2, border = "red") 
+rect.hclust(h_euclidean, k = 4, border = "blue") 
+
+output_dir <- "images/clustering"
+
+if(!dir.exists(output_dir)){
+  dir.create(output_dir, recursive = TRUE)
+}
+
+png(file.path(output_dir, "1_Euclidean_ward.png"))  
+plot(h_euclidean, main = "Dendrograma - Euclidean Ward")
+
+dev.off()
 
 # ---------------------------------------------------------
 # Dendrograma 2: Gower Dissimilarity (Squared) with Ward’s Method
 # ---------------------------------------------------------
 library(cluster)
-# 'actives' define las columnas a usar (se incluyen tanto numéricas como categóricas)
-actives <- c(1:16)
-dissimMatrix <- daisy(dd[, actives], metric = "gower", stand = TRUE)  # Calcula la disimilitud con Gower
+dissimMatrix <- daisy(dd, metric = "gower", stand = TRUE)  # Calcula la disimilitud con Gower
 distMatrix <- dissimMatrix^2  # Eleva al cuadrado para adecuarlo a Ward’s method
 h_gower <- hclust(distMatrix, method = "ward.D2")  # Clustering jerárquico con Ward
 plot(h_gower, main = "2. Gower ward")
+rect.hclust(h_gower, k = 2, border = "red") 
+rect.hclust(h_gower, k = 4, border = "blue")
+
+png(file.path(output_dir, "2_Gower_ward.png"))
+plot(h_gower, main = "Dendrograma - Gower Ward")
+dev.off()
 
 # ---------------------------------------------------------
 # Creación de objetos de clusters para profiling:
@@ -44,9 +60,27 @@ plot(h_gower, main = "2. Gower ward")
 # Ajusta k según lo que resulte más adecuado en tu análisis.
 # Por ejemplo, cortamos el dendrograma Euclidean en 2 clusters y el Gower en 4 clusters.
 #c1 <- cutree(h_euclidean, k = 2)
-c1 <- cutree(h_gower, k = 4)
+c2 <- cutree(h_gower, k = 2)
+c4 <- cutree(h_gower, k = 4)
 
-##PROFILING##
+# Display the number of clusters
+print("Number of clusters:")
+
+print("For cut 2:")
+print(table(c2))
+
+print("For cut 4:")
+print(table(c4))
+
+# Compare the clusters
+print("Comparing clusters:")
+print(table(c2, c4))
+
+names(dd)
+
+# ---------------------------------------------------------
+# Profiling
+# ---------------------------------------------------------
 
 # Calcula els valor test de la variable Xnum per totes les modalitats del factor P
 ValorTestXnum <- function(Xnum,P){
@@ -84,7 +118,7 @@ ValorTestXquali <- function(P,Xquali){
 }
 
 # P contains class variable (which cluster an individual belongs to)
-P <- c1
+P <- c4
 nameP <- "classe"
 
 nc <- length(levels(factor(P)))
@@ -94,22 +128,25 @@ pvalk <- matrix(data = 0, nrow = nc, ncol = K, dimnames = list(levels(P), names(
 nameP <- "Class"
 n <- dim(dd)[1]
 
-if(!dir.exists("profilingImages")) dir.create("profilingImages")
-setwd("C:/Users/usuario/Documents/uni_upc/ultimoaño/MD/scripts_r/profilingImages")
+output_dir <- "images/profiling"
+
+if(!dir.exists(output_dir)){
+  dir.create(output_dir, recursive = TRUE)}
+
 
 for(k in 1:K){
   if(is.numeric(dd[, k])){
     print(paste("Anàlisi per classes de la Variable:", names(dd)[k]))
     
     # Guardar Boxplot
-    png(paste("Boxplot", names(dd)[k], "Vs", nameP, ".png", sep = ""))
+    png(file.path(output_dir, paste("Boxplot", names(dd)[k], "Vs", nameP, ".png", sep = "")))
     boxplot(dd[, k] ~ P, 
             main = paste("Boxplot of", names(dd)[k], "vs", nameP),
             horizontal = TRUE, xlab = names(dd)[k], ylab = nameP)
     dev.off()
     
     # Guardar Barplot de Medias
-    png(paste("Means", names(dd)[k], "By", nameP, ".png", sep = ""))
+    png(file.path(output_dir, paste("Means", names(dd)[k], "By", nameP, ".png", sep = "")))
     barplot(tapply(dd[[k]], P, mean), 
             main = paste("Means of", names(dd)[k], "by", nameP))
     dev.off()
@@ -132,7 +169,7 @@ for(k in 1:K){
     if(class(dd[, k]) == "Date"){
       print(summary(dd[, k]))
       print(sd(dd[, k]))
-      png(paste("Hist_Date_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir, paste("Hist_Date_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       hist(dd[, k], breaks = "weeks")
       dev.off()
     } else {
@@ -148,7 +185,7 @@ for(k in 1:K){
       print(append("Categories=", levels(as.factor(dd[, k]))))
       
       # Plot 1: Líneas de colperc
-      png(paste("Prop_lines_colperc_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir, paste("Prop_lines_colperc_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       plot(marg, type = "l", ylim = c(0, 1), main = paste("Prop. of pos & neg by", names(dd)[k]))
       paleta <- rainbow(length(levels(dd[, k])))
       for(c in 1:length(levels(dd[, k]))){
@@ -157,7 +194,7 @@ for(k in 1:K){
       dev.off()
       
       # Plot 2: Líneas de colperc con leyenda
-      png(paste("Prop_lines_colperc_leg_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir, paste("Prop_lines_colperc_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       plot(marg, type = "l", ylim = c(0, 1), main = paste("Prop. of pos & neg by", names(dd)[k]))
       paleta <- rainbow(length(levels(dd[, k])))
       for(c in 1:length(levels(dd[, k]))){
@@ -167,7 +204,7 @@ for(k in 1:K){
       dev.off()
       
       # Plot 3: Líneas de rowperc
-      png(paste("Prop_lines_rowperc_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir, paste("Prop_lines_colperc_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       plot(marg, type = "n", ylim = c(0, 1), main = paste("Prop. of pos & neg by", names(dd)[k]))
       paleta <- rainbow(length(levels(dd[, k])))
       for(c in 1:length(levels(dd[, k]))){
@@ -176,7 +213,7 @@ for(k in 1:K){
       dev.off()
       
       # Plot 4: Líneas de rowperc con leyenda
-      png(paste("Prop_lines_rowperc_leg_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir, paste("Prop_lines_rowperc_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       plot(marg, type = "n", ylim = c(0, 1), main = paste("Prop. of pos & neg by", names(dd)[k]))
       paleta <- rainbow(length(levels(dd[, k])))
       for(c in 1:length(levels(dd[, k]))){
@@ -230,4 +267,6 @@ snake_plot <- function(data, clusters, file_name) {
   dev.off()
 }
 
-snake_plot(dcon, P, "SnakePlot.png")
+snake_plot(dcon, P, file.path(output_dir, "SnakePlot.png"))
+
+setwd("../..")
