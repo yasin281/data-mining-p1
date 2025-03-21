@@ -166,13 +166,6 @@ for(k in 1:K){
     print(pvalk[, k])
     
   } else {
-    if(class(dd[, k]) == "Date"){
-      print(summary(dd[, k]))
-      print(sd(dd[, k]))
-      png(file.path(output_dir, paste("Hist_Date_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
-      hist(dd[, k], breaks = "weeks")
-      dev.off()
-    } else {
       # Variables cualitatives
       print(paste("Variable", names(dd)[k]))
       tbl <- table(P, dd[, k])
@@ -223,14 +216,14 @@ for(k in 1:K){
       dev.off()
       
       # Plot 5: Barplot apilat
-      png(paste("Barplot_stacked_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir,paste("Barplot_stacked_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       paleta <- rainbow(length(levels(dd[, k])))
       barplot(table(dd[, k], as.factor(P)), beside = FALSE, col = paleta)
       legend("topright", levels(as.factor(dd[, k])), pch = 1, cex = 0.5, col = paleta)
       dev.off()
       
       # Plot 6: Barplot adosat
-      png(paste("Barplot_sidebyside_", names(dd)[k], ".png", sep = ""), width = 800, height = 600)
+      png(file.path(output_dir,paste("Barplot_sidebyside_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       paleta <- rainbow(length(levels(dd[, k])))
       barplot(table(dd[, k], as.factor(P)), beside = TRUE, col = paleta)
       legend("topright", levels(as.factor(dd[, k])), pch = 1, cex = 0.5, col = paleta)
@@ -241,7 +234,7 @@ for(k in 1:K){
       
       print("valorsTest:")
       print(ValorTestXquali(P, dd[, k]))
-    }
+    
   }
 }#endfor
 
@@ -268,5 +261,28 @@ snake_plot <- function(data, clusters, file_name) {
 }
 
 snake_plot(dcon, P, file.path(output_dir, "SnakePlot.png"))
+
+
+# ------------------------------
+# Mean T-test for comparison
+# ------------------------------
+mean_ttest_numerical <- function(data, clusters) {
+  global_means <- colMeans(data)
+  
+  for (num_var in colnames(data)) {
+    cluster_means <- aggregate(data[[num_var]], by = list(cluster = clusters), FUN = mean)
+    colnames(cluster_means) <- c("cluster", "mean")
+    
+    print(paste("T-test for variable:", num_var))
+    for (cluster in unique(clusters)) {
+      cluster_data <- data[clusters == cluster, num_var]
+      t_test_result <- t.test(data[[num_var]], cluster_data)
+      print(paste("Cluster:", cluster, "T-statistic:", t_test_result$statistic, "P-value:", t_test_result$p.value))
+    }
+  }
+}
+
+mean_ttest_numerical(dcon, P)
+
 
 setwd("../..")
