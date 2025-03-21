@@ -103,7 +103,7 @@ ze = rep(0,length(etiq)) # WE WILL NEED THIS VECTOR AFTERWARDS FOR THE GRAPHICS
 #select your axis
 
 #HACER UN FOR PARA RECORRER TODOS LOS PARES
-for(i in 1:5) {
+for(i in 1:4) {
   eje1<-i
   for (j in (i+1):5) {
     eje2<-j
