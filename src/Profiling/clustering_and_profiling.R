@@ -281,7 +281,8 @@ mean_ttest_numerical <- function(data, clusters) {
       
       # Print results
       print(paste("Cluster:", cluster, 
-                  "T-statistic:", round(t_test_result$statistic, 3)))
+                  "T-statistic:", round(t_test_result$statistic, 3),
+                  "P-value:", signif(t_test_result$p.value, 3)))
     }
   }
 }
