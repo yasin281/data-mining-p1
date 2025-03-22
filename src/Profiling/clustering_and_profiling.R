@@ -218,14 +218,14 @@ for(k in 1:K){
       # Plot 5: Barplot apilat
       png(file.path(output_dir,paste("Barplot_stacked_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       paleta <- rainbow(length(levels(dd[, k])))
-      barplot(table(dd[, k], as.factor(P)), beside = FALSE, col = paleta)
+      barplot(table(dd[, k], as.factor(P)), beside = FALSE, col = paleta, main=paste("Stacked barplot of", names(dd)[k]))
       legend("topright", levels(as.factor(dd[, k])), pch = 1, cex = 0.5, col = paleta)
       dev.off()
       
       # Plot 6: Barplot adosat
       png(file.path(output_dir,paste("Barplot_sidebyside_", names(dd)[k], ".png", sep = "")), width = 800, height = 600)
       paleta <- rainbow(length(levels(dd[, k])))
-      barplot(table(dd[, k], as.factor(P)), beside = TRUE, col = paleta)
+      barplot(table(dd[, k], as.factor(P)), beside = TRUE, col = paleta, main=paste("Multiple barplot of", names(dd)[k]))
       legend("topright", levels(as.factor(dd[, k])), pch = 1, cex = 0.5, col = paleta)
       dev.off()
       
