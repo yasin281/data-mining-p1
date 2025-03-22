@@ -267,22 +267,25 @@ snake_plot(dcon, P, file.path(output_dir, "SnakePlot.png"))
 # Mean T-test for comparison
 # ------------------------------
 mean_ttest_numerical <- function(data, clusters) {
-  global_means <- colMeans(data)
-  
   for (num_var in colnames(data)) {
-    cluster_means <- aggregate(data[[num_var]], by = list(cluster = clusters), FUN = mean)
-    colnames(cluster_means) <- c("cluster", "mean")
-    
     print(paste("T-test for variable:", num_var))
+    
     for (cluster in unique(clusters)) {
+      # Extract data for the current cluster
       cluster_data <- data[clusters == cluster, num_var]
-      t_test_result <- t.test(data[[num_var]], cluster_data)
-      print(paste("Cluster:", cluster, "T-statistic:", t_test_result$statistic, "P-value:", t_test_result$p.value))
+      # Extract data for the rest (all data except the current cluster)
+      rest_data <- data[clusters != cluster, num_var]
+      
+      # Perform t-test (cluster vs rest of data)
+      t_test_result <- t.test(cluster_data, rest_data)
+      
+      # Print results
+      print(paste("Cluster:", cluster, 
+                  "T-statistic:", round(t_test_result$statistic, 3)))
     }
   }
 }
 
 mean_ttest_numerical(dcon, P)
-
 
 setwd("../..")
