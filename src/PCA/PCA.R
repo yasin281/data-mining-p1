@@ -146,3 +146,38 @@ arrows(0, 0, X_sub, Y_sub, length = 0.07, col = "green")
 text(X_sub, Y_sub, labels = subVars, col = "green", cex = 0.9, font = 2)
 
 dev.off()
+
+# Select principal components to project
+eje_1 <- 1
+eje_2 <- 2
+
+# Coordinates of all variables on PC1 and PC2
+X <- Phi[,eje_1]
+Y <- Phi[,eje_2]
+
+#Select data from ProdCat to show centroids PC1 vs PC2
+varcat <- factor(dd[,6])
+
+# Calculate centroids for each group
+fdic1 <- tapply(Psi[,eje_1], varcat, mean) 
+fdic2 <- tapply(Psi[,eje_2], varcat, mean) 
+
+png("graficos/final/Projection_With_Centroids_PC1_PC2.png", width = 800, height = 600)
+plot(Psi[, eje_1], Psi[, eje_2], type = "n",
+     main = paste("Variable Projection and Centroids: PC", eje_1, "vs PC", eje_2),
+     xlab = paste("PC", eje_1), ylab = paste("PC", eje_2))
+axis(side = 1, pos = 0, labels = FALSE, col = "cyan")
+axis(side = 2, pos = 0, labels = FALSE, col = "cyan")
+axis(side = 3, pos = 0, labels = FALSE, col = "cyan")
+axis(side = 4, pos = 0, labels = FALSE, col = "cyan")
+
+# Draw arrows representing the variable loadings
+arrows(ze, ze, X, Y, length = 0.07, col = "blue")
+text(X, Y, labels = etiq, col = "darkblue", cex = 0.7)
+
+# Plot the centroids for each group and label them
+points(fdic1, fdic2, pch = 16, col = "red", cex = 1.2)
+text(fdic1, fdic2, labels = names(fdic1), col = "black", cex = 1.5, font = 2, pos = 3)
+
+dev.off()
+
